@@ -1,0 +1,1016 @@
+package edu.kh.array2.practice;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Array2Practice {
+	   
+	   // 작성된 코드가 틀린 이유와 출력값이 왜 저렇게 나오는지 이유
+	   // 해결 방법
+	public void homeWork() {
+		int[][] arr = new int[4][4];
+         
+		int rowsum = arr.length - 1;
+		int colsum = arr[0].length - 1;
+         
+		for(int row = 0; row < arr.length; row++) {
+			for(int col = 0; col < arr[row].length; col++) {
+               
+				if(row != rowsum && col != colsum) { // 랜덤 값을 저장할 범위를 지정한 뒤 난수를 생성해야 한다.
+                  
+					arr[row][col] = (int)(Math.random()*10 + 1);
+
+					arr[rowsum][col] += arr[row][col];
+					// arr[rowsum][col] = arr[rowsum][col] + arr[row][col];
+					// arr[3][3] = arr[3][3] + arr[3][3];
+					
+					arr[row][colsum] += arr[row][col];
+					// arr[row][colsum] = arr[row][colsum] + arr[row][col];
+					// arr[3][3] = arr[3][3] + arr[3][3];
+					
+					arr[rowsum][colsum] += arr[row][col]; // =은 값을 누적하는 것이 아니라 계속해서 새로운 값을 대입하기 때문에 +=로 바꿔 주어야 한다.
+                  
+				}
+				System.out.printf("%3d " , arr[row][col] ); // if문이 끝난 뒤 값을 출력해야 한다.
+			}
+			System.out.println();
+		}
+	}
+
+	public void practice1() {
+		
+		// 3행 3열짜리 문자열 배열을 선언 및 할당하고
+		// 인덱스 0행 0열부터 2행 2열까지 차례대로 접근하여 "(0,0)"과 같은 형식으로 저장 후 출력하세요.
+		
+		// [실행 화면]
+		// (0, 0)(0, 1)(0, 2)
+		// (1, 0)(1, 1)(1, 2)
+		// (2, 0)(2, 1)(2, 2)
+		
+		String[][] arr2 = new String[3][3];
+		
+		for(int row = 0; row < arr2.length; row++) {
+			for(int col = 0; col <arr2[row].length; col++) {
+				arr2[row][col] = "(" + row + ", " + col + ")"; // 값을 저장하는 과정이 필요함
+				System.out.print(arr2[row][col]);
+			}
+			System.out.println();
+		}
+	}
+	
+	public void practice2() {
+		
+		// 4행 4열짜리 정수형 배열을 선언 및 할당하고
+		//		1) 1 ~ 16까지 값을 차례대로 저장하세요.
+		//		2) 저장된 값들을 차례대로 출력하세요.
+		
+		int[][] arr = new int[4][4];
+		int i = 1;
+		
+		for(int row = 0; row < arr.length; row++) {
+			for(int col = 0; col < arr[row].length; col++) {
+				
+				arr[row][col] = i++;
+				System.out.printf("%2d ", arr[row][col]);
+			}
+			System.out.println();
+		}
+	}
+	
+	public void practice3() {
+		
+		// 4행 4열짜리 정수형 배열을 선언 및 할당하고
+		//		1) 1 ~ 16까지 값을 거꾸로 저장하세요.
+		//		2) 저장된 값들을 차례대로 출력하세요.
+		
+		int[][] arr = new int[4][4];
+		int i = 16;
+		
+		for(int row = 0; row < arr.length; row++) {
+			for(int col = 0; col < arr[row].length; col++) {
+				
+				arr[row][col] = i--;
+				System.out.printf("%2d ", arr[row][col]);
+			}
+			System.out.println();
+		}
+	}
+	
+	public void practice4() {
+		
+		int[][] arr = new int[4][4];
+		
+		// 상수 사용법 : 변하지 않는 특정 값에 이름을 붙여 줌
+		final int ROW_LAST_INDEX = arr.length - 1;// 행의 마지막 인덱스
+		final int COL_LAST_INDEX = arr[0].length - 1; // 열의 마지막 인덱스
+		
+		for(int row = 0; row < arr.length; row++) { // 행 반복
+							   // 행의 길이
+			
+			for(int col = 0; col < arr[row].length; col++) { // 열 반복
+							  // row번째 행의 열의 길이
+				
+				// 마지막 행과 마지막 열이 아닌 경우
+				if(row != ROW_LAST_INDEX && col != COL_LAST_INDEX) {
+					
+					int random = (int)(Math.random() * 10 + 1); // 1~10 사이 난수
+					arr[row][col] = random;
+					
+					// 각 행의 마지막 열에 난수를 누적
+					arr[row][COL_LAST_INDEX] += arr[row][col];
+					
+					// 각 열의 마지막 행에 난수를 누적
+					arr[ROW_LAST_INDEX][col] += arr[row][col];
+					
+					// 생성된 모든 난수를 마지막 행, 마지막 열에 누적
+					arr[ROW_LAST_INDEX][COL_LAST_INDEX] += arr[row][col];
+				}
+				
+				System.out.printf("%4d", arr[row][col]);
+			} // 열 반복 끝
+			System.out.println(); // 줄 바꿈
+			
+		} // 행 반복 끝
+
+	}
+	
+	public void practice5() {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			
+			System.out.print("행 크기 : ");
+			int row = sc.nextInt();
+			
+			System.out.print("열 크기 : ");
+			int col = sc.nextInt();
+			
+			if(row < 1 || row > 10 || col < 1 || col > 10) { // 1~10 사이 숫자가 아닌 경우
+				System.out.println("반드시 1~10 사이의 정수를 입력해야 합니다.");
+				
+			} else {
+				int[][] arr = new int[row][col];
+				
+				for(int i = 0; i < row; i++) {
+					
+					for(int j = 0; j < col; j++) {
+						arr[i][j] = (int)(Math.random() * 26);
+						
+						char result = (char)(arr[i][j] + 65);
+						System.out.print(result + " ");
+					}
+					System.out.println();
+				}
+				break;
+			}
+			
+		}
+		
+		
+//		[내 코드]
+//		Scanner sc = new Scanner(System.in);
+//		
+//		int row = 0;
+//		int col = 0;
+//		
+//		while(true) {
+//			
+//			System.out.print("행 크기 : ");
+//			row = sc.nextInt();
+//			
+//			if(row >= 1 && row <= 10) {
+//				break;
+//			}
+//			System.out.println("반드시 1~10 사이의 정수를 입력해야 합니다.");
+//		}
+//		
+//		while(true) {
+//			
+//			System.out.print("열 크기 : ");
+//			col = sc.nextInt();
+//			
+//			if(col >= 1 && col <= 10) {
+//				break;
+//			}
+//			System.out.println("반드시 1~10 사이의 정수를 입력해야 합니다.");
+//		}
+//		
+//		char[][] arr = new char[row][col];
+//		
+//		for(row = 0; row < arr.length; row++) {
+//			for(col = 0; col <arr[row].length; col++) {
+//				
+//				int random = 'A' + (int)(Math.random()*25 + 1);
+//				arr[row][col] = (char)random;
+//				System.out.print(arr[row][col] + " ");
+//			}
+//			
+//			System.out.println();
+//		}
+	}
+	
+	public void practice6() {
+
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("행의 크기 : ");
+		int input = sc.nextInt();
+		
+		char[][] arr = new char[input][];
+		
+		char result = 'a';
+		
+		// 열 크기 정하는 for문
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print(i + "열의 크기 : ");
+			int col = sc.nextInt();
+			arr[i] = new char[col];
+		}
+		
+		// 출력용 for문
+		for(int row = 0; row < arr.length; row++) {
+			
+			for(int col = 0; col < arr[row].length; col++) {
+				arr[row][col] = result++;
+				System.out.print(arr[row][col] + " ");
+			}
+			System.out.println();
+		}
+		
+//		[내 코드]
+//		Scanner sc = new Scanner(System.in);
+//		
+//		System.out.print("행의 크기 : ");
+//		int row = sc.nextInt();
+//		
+//		char ch = 'a';
+//		int col = 0;
+//		
+//		char[][] arr = new char[row][];
+//		
+//		for(int i = 0; i < arr.length; i++) {
+//			System.out.print(i + "열의 크기 : ");
+//			col = sc.nextInt();
+//			arr[i] = new char[col];
+//		}
+//		
+//		for(row = 0; row < arr.length; row++) {
+//			for(col = 0; col < arr[row].length; col++) {
+//				arr[row][col] = ch;
+//				System.out.print((char)arr[row][col] + " ");
+//				ch++;
+//			}
+//			System.out.println();
+//		}
+
+	}
+	
+	public void practice8() {
+//		3이상인 홀수를 입력 받아 배열의 중간까지는 1부터 1씩 증가하여 오름차순으로 값을 넣고,
+//		중간 이후부터 끝까지는 1씩 감소하여 내림차순으로 값을 넣어 출력하세요.
+//		단, 입력한 정수가 홀수가 아니거나 3 미만일 경우 “다시 입력하세요”를 출력하고
+//		다시 정수를 받도록 하세요.
+//		
+//		[실행 화면]
+//		정수 : 4
+//		다시 입력하세요.
+//		정수 : -6
+//		다시 입력하세요.
+//		정수 : 5
+//		1, 2, 3, 2, 1
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수 : ");
+		int input = sc.nextInt();
+		
+		while (input %2 == 0 || input < 3) {
+			System.out.println("다시 입력하세요.");
+			System.out.print("정수 : ");
+			input = sc.nextInt();
+		}
+		
+		int[] arr = new int[input];
+		int x = input / 2;
+		for(int i=0; i<=x; i++) {
+			arr[i] = i + 1;
+			System.out.print(arr[i] + ", ");
+			} 
+
+		for(int j=x; j>=1; j--) {
+			arr[x+1] = j;
+			if(j != 1) {
+				System.out.print(arr[x+1] + ", ");
+			}else {
+				System.out.print(arr[x+1]);
+			}
+		}
+	}	
+	
+	public void practice9() {
+//		10개의 값을 저장할 수 있는 정수형 배열을 선언 및 할당하고,
+//		1~10 사이의 난수를 발생시켜 배열에 초기화한 후 출력하세요.
+//		[실행 화면]
+//		발생한 난수 : 9 7 6 2 5 10 7 2 9 6 
+		
+		int[] arr = new int[10];
+		
+		System.out.print("발생한 난수 : ");
+
+		for(int i=0; i<arr.length; i++) {
+		
+			arr[i] = (int)(Math.random()*10 + 1);
+			System.out.print(arr[i] + " ");
+		}
+	}
+	
+	public void practice10() {
+//		10개의 값을 저장할 수 있는 정수형 배열을 선언 및 할당하고,
+//		1~10 사이의 난수를 발생시켜 배열에 초기화 후
+//		배열 전체 값과 그 값 중에서 최대값과 최소값을 출력하세요.
+		
+//		[실행 화면]
+//		발생한 난수 : 5 3 2 7 4 8 6 10 9 10 
+//		최대값 : 10
+//		최소값 : 2
+		
+		int[] arr = new int[10];
+		System.out.print("발생한 난수 : ");
+		
+		for(int i=0; i<arr.length; i++) {
+			arr[i] = (int)(Math.random()*10 + 1);
+			System.out.print(arr[i] + " ");
+		}
+		
+		int max = arr[0];
+		int min = arr[0];
+		
+		for(int i=0; i<arr.length; i++) {
+			if(arr[i] > max) {
+				max = arr[i];
+			} else if(arr[i] < min){
+				min = arr[i];
+			}
+		}
+		
+		System.out.println();
+		System.out.println("최대값 : " + max);
+		System.out.println("최소값 : " + min);
+	}
+	
+	public void practice11() {
+//		10개의 값을 저장할 수 있는 정수형 배열을 선언 및 할당하고
+//		1~10 사이의 난수를 발생시켜 중복된 값이 없게 배열에 초기화한 후 출력하세요.
+//		[실행 화면]
+//		4 1 3 6 9 5 8 10 7 2 
+		
+		int[] arr = new int[10];
+		
+		for(int i=0; i<arr.length; i++) {
+			int random = (int)(Math.random()*10+1);
+			arr[i] = random;
+			
+			for(int j=0; j<i; j++) {
+				if(random == arr[j]) {
+					i--;
+					break;
+				}
+			}
+		}
+		
+		for(int i=0; i<arr.length; i++) {
+				System.out.print(arr[i] + " ");
+		}
+	}
+	
+	public void practice12() {
+//		로또 번호 자동 생성기 프로그램을 만들기.
+//		(중복 값 없이 오름차순으로 정렬하여 출력하세요.)
+//		[실행 화면]
+//		3 4 15 17 28 40 
+	
+		int[] lotto = new int[6];
+		
+		for(int i=0; i<lotto.length; i++) {
+			int random = (int)(Math.random()*45+1);
+			lotto[i] = random;
+			
+			for(int j=0; j<i; j++) {
+				if(random == lotto[j]) {
+					i--;
+					break;
+				}
+			}
+		}
+		
+		Arrays.sort(lotto);
+		for(int i=0; i<lotto.length; i++) {
+			System.out.print(lotto[i] + " ");
+		}
+	}
+	
+	public void practice13() {
+		
+//		[내 코드]		
+//		Scanner sc = new Scanner(System.in);
+//		
+//		System.out.print("문자열 : ");
+//		String input = sc.nextLine();
+//		
+//		char[] arr = new char[input.length()];
+//		int ch = 0;
+//		int sum = 0;
+//		
+//		System.out.print("문자열에 있는 문자 : ");
+//		
+//		for(int i=0; i<arr.length; i++) {
+//			arr[i] = input.charAt(i);
+//			sum++;
+//			
+//			if(i == input.length() - 1) {
+//				System.out.print(arr[i]);
+//			} else{
+//				System.out.print(arr[i] + ", ");
+//			}
+//		}
+//		System.out.println();
+//		System.out.println("문자 개수 : " + sum);
+//		
+//		[선생님 코드]
+		Scanner sc = new Scanner(System.in);
+	      
+		System.out.print("문자열 : ");
+		String input = sc.nextLine();
+	      
+	    char[] arr = new char[input.length()];
+	      
+	    int count = 0; // 카운트용 변수
+	      
+	    System.out.print("문자열에 있는 문자 : ");
+	    for(int i=0 ; i<arr.length ; i++) {
+	    	arr[i] = input.charAt(i); // 문자열 -> char배열에 옮겨 담기
+	         
+	    // 중복 검사 + flag
+	    // application
+	    // 배열 : [a, p, p, l, i, c, a, t, i, o, n]
+	    // 화면 :  a, p, l, i, c, t, o, n
+	    // 개수 :  1  2  3  4  5  6  7  8
+	         
+	    	boolean flag = true; // 신호용 변수
+	         
+	        for(int x=0 ; x<i ; x++) { // 중복 검사용 for문
+	            if( arr[i] == arr[x] ) {
+	               // 현재 대입된 문자가 앞서 대입된 문자와 같다면 == 중복
+	               flag = false; // 신호용 변수의 값을 false로 변경
+	               break; 
+	            }
+	        }
+	         
+	        if(flag) { // flag가 true인 경우 == 중복이 없었다라는 의미
+	            
+	        	count++; // 카운트 1 증가
+	            
+	            if(i == 0) { // 첫 바퀴인 경우
+	               System.out.print(arr[i]);
+	               
+	            } else { // 첫 바퀴가 아닌 경우
+	               System.out.print(", " + arr[i]);
+	            }
+	            
+	       }
+	         
+	    } // 바깥쪽 for문 끝
+	      
+	    System.out.println("\n문자 개수 : " + count);
+		
+	}
+	
+	public void practice14() {
+//		사용자가 입력한 배열의 길이만큼의 문자열 배열을 선언 및 할당하고
+//		배열의 인덱스에 넣을 값 역시 사용자가 입력하여 초기화 하세요.
+//		단, 사용자에게 배열에 값을 더 넣을지 물어보고 몇 개를 더 입력할 건지,
+//		늘린 곳에 어떤 데이터를 넣을 것인지 받으세요.
+//		사용자가 더 이상 입력하지 않겠다고 하면 배열 전체 값을 출력하세요.
+
+//		[내 코드]
+//		Scanner sc = new Scanner(System.in);
+//		
+//		System.out.print("배열의 크기를 입력하세요 : ");
+//		int input = sc.nextInt();
+//		
+//		String[] arr = new String[input];
+//		
+//		for(int i=0; i<arr.length; i++) {
+//			System.out.print((i+1)+"번째 문자열 : ");
+//			String input1 = sc.nextLine();
+//		}
+//		
+//		String answer;
+//		System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
+//		answer = sc.next();
+//		
+//		do {
+//			System.out.print("더 입력하고 싶은 개수 : ");
+//			int input2 = sc.nextInt();
+//			
+//			String[] arr2 = new String[input2];
+//			
+//			for(int i=arr.length+1; i<=arr2.length; i++) {
+//				System.out.print(i+"번째 문자열 : ");
+//				String input3 = sc.nextLine();
+//
+//				System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
+//				answer = sc.next();
+//			
+//				if(answer.equals("n") || answer.equals("N")) {
+//				break;
+//				}
+//			}
+//		} while (answer.equals("y") || answer.equals("Y"));
+//		
+//		System.out.println(Arrays.toString(arr));
+		
+//		[선생님 코드]
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("배열의 크기를 입력하세요 : ");
+		int size = sc.nextInt();
+		sc.nextLine(); // 입력 버퍼 개행 문자 제거
+		
+		String[] arr = new String[size]; // 배열 선언 및 할당
+		
+		int start = 0; // while문 내 for문의 초기식에 사용될 변수
+		
+		while(true) {
+			
+			for(int i=start; i<arr.length; i++){
+				System.out.print( (i+1) + "번째 문자열 : ");
+				arr[i] = sc.nextLine();
+			}
+			
+			System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
+			char input = sc.nextLine().charAt(0);
+						// 입력받은 문자열 중 제일 앞 문자 하나만 얻어옴
+			
+			if(input == 'Y' || input == 'y') {
+				
+				start = arr.length;
+				// 추가 입력 받기 위한 추가 배열 부분의 시작 위치
+				
+				System.out.print("더 입력하고 싶은 개수 : ");
+				int addSize = sc.nextInt();
+				sc.nextLine(); // 입력 버퍼 개행 문자 제거
+				
+				// 증가된 크기의 배열을 생성하여 arr 배열 깊은 복사
+				String[] copyArr = new String[arr.length + addSize];
+				
+				for(int i=0; i<arr.length; i++) { // 기존 배열의 크기만큼만 반복
+					
+					copyArr[i] = arr[i]; // 복사 배열에 기존 배열 값을 같은 인덱스에 대입
+				}
+
+				// 배열 얕은 복사
+				arr = copyArr; // arr이 참조하는 주소 값을
+							   // copyArr의 주소 값을 바꿔서
+							   // arr이 참조하는 배열의 크기가 증가한 것처럼 보이게 함
+				
+			} else { // y/n만 입력했다는 상황을 가정
+				
+				break; // while 반복 종료
+				
+			}
+		} // while문 끝
+		
+		System.out.println(Arrays.toString(arr));
+	}
+	
+	public void practice15() {
+		
+		String[] student = {"강건강", "남나나", "도대담", "류라라", "문미미", "박보배",
+							"송성실", "윤예의", "진재주", "차천축", "피풍표", "홍하하"};
+		
+		String[][] studentArr = new String[3][2];
+		String[][] studentArr2 = new String[3][2];
+		
+		int index = 0;
+		
+		System.out.println("== 1분단 ==");
+		
+		if(index < studentArr.length) {
+			
+			for(int row=0; row<studentArr.length; row++) {
+				
+				for(int col=0; col<studentArr[row].length; col++) {
+					
+					studentArr[row][col] = student[index];
+					index++;
+				}
+				
+				System.out.printf("%s  %s\n", studentArr[row][0], studentArr[row][1]);
+			}
+		}
+		
+		System.out.println("== 2분단 ==");
+
+		if(index > studentArr.length) {
+			
+			for(int row=0; row<studentArr2.length; row++) {
+				
+				for(int col=0; col<studentArr2[row].length; col++) {
+					
+					studentArr2[row][col] = student[index];
+					index++;
+				}
+				
+				System.out.printf("%s  %s\n", studentArr2[row][0], studentArr2[row][1]);
+			}
+		}
+	}
+		
+	public void practice16() {
+		
+		String[] student = {"강건강", "남나나", "도대담", "류라라", "문미미", "박보배",
+							"송성실", "윤예의", "진재주", "차천축", "피풍표", "홍하하"};
+		
+		String[][] studentArr = new String[3][2];
+		String[][] studentArr2 = new String[3][2];
+		
+		int index = 0;
+		
+		System.out.println("== 1분단 ==");
+		
+		if(index < studentArr.length) {
+			
+			for(int row=0; row<studentArr.length; row++) {
+				
+				for(int col=0; col<studentArr[row].length; col++) {
+					
+					studentArr[row][col] = student[index];
+					index++;
+				}
+				
+				System.out.printf("%s  %s\n", studentArr[row][0], studentArr[row][1]);
+			}
+		}
+		
+		System.out.println("== 2분단 ==");
+
+		if(index > studentArr.length) {
+			
+			for(int row=0; row<studentArr2.length; row++) {
+				
+				for(int col=0; col<studentArr2[row].length; col++) {
+					
+					studentArr2[row][col] = student[index];
+					index++;
+				}
+				
+				System.out.printf("%s  %s\n", studentArr2[row][0], studentArr2[row][1]);
+			}
+		}
+		
+		System.out.println("====================================");
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("검색할 학생 이름을 입력하세요 : ");
+		String name = sc.nextLine();
+		
+		boolean flag = true;
+		
+		for(int row=0; row<studentArr.length; row++) {
+			
+			for(int col=0; col<studentArr[row].length; col++) {
+				
+				if(name.equals(studentArr[row][col])) {
+					if(col %2 == 0) {
+						System.out.printf("검색하신 %s 학생은 %d분단 %d번째 줄 %s쪽에 있습니다.", studentArr[row][col], 1, row + 1, "왼");
+						flag = false;
+					} else {
+						System.out.printf("검색하신 %s 학생은 %d분단 %d번째 줄 %s쪽에 있습니다.", studentArr[row][col], 1, row + 1, "오른");
+						flag = false;
+					}
+						
+				} else if(name.equals(studentArr2[row][col])){
+					if(col %2 == 0) {
+						System.out.printf("검색하신 %s 학생은 %d분단 %d번째 줄 %s쪽에 있습니다.", studentArr2[row][col], 2, row + 1, "왼");
+						flag = false;
+					} else {
+						System.out.printf("검색하신 %s 학생은 %d분단 %d번째 줄 %s쪽에 있습니다.", studentArr2[row][col], 2, row + 1, "오른");
+						flag = false;
+					}
+				}
+
+			}
+		}
+		
+		if(flag) System.out.println("검색 결과가 없습니다.");
+	}
+	
+	public void practice17() {
+		
+//		String 2차원 배열 6행 6열을 만들고 행의 맨 위와 제일 앞 열은 각 인덱스를 저장하세요.
+//		그리고 사용자에게 행과 열을 입력 받아 해당 좌표의 값을 “X”로 변환해 2차원 배열을 출력하세요.
+//		
+//		[실행 화면]
+//		행 인덱스 입력 : 4
+//		열 인덱스 입력 : 2
+//		  0 1 2 3 4
+//		0 
+//		1
+//		2
+//		3
+//		4     X
+		
+	    Scanner sc = new Scanner(System.in);
+
+	    String[][] arr = new String[6][6];
+	            
+	    System.out.print("행 인덱스 입력 : ");
+	    int rowIndex = sc.nextInt();
+	    sc.nextLine();
+	    
+	    System.out.print("열 인덱스 입력 : ");
+	    int colIndex = sc.nextInt();
+	    sc.nextLine();
+	      
+	    int num1 = 0;
+	    int num2 = 0;
+	      
+	    for(int row = 0; row < arr.length; row++) {
+	    	for (int col = 0; col < arr[row].length; col++) {
+	    		if(row == 0 && col != 0) {
+	    			arr[row][col] = num1++ + " ";
+	    			
+	            } else if(col == 0 && row != 0) {
+	            	arr[row][col] = num2++ + " ";
+	               
+	            } else {
+	            	arr[row][col] = "  ";
+	            }
+	    		
+	            arr[rowIndex+1][colIndex+1] = "X";
+	            
+	            System.out.print(arr[row][col]);
+	    	}
+	    	
+	         System.out.println();
+	    }
+	      
+	}
+	
+	public void practice18() {
+		
+//		실습 문제9와 내용은 같으나 행 입력 시 99가 입력되지 않으면 무한 반복이 되도록 구현하세요.
+		
+	    Scanner sc = new Scanner(System.in);
+
+	    String[][] arr = new String[6][6];
+
+	    while(true) {
+	    	
+	    	System.out.print("행 인덱스 입력 : ");
+	    	int rowIndex = sc.nextInt();
+	    	sc.nextLine();
+
+	    	if(rowIndex == 99) {
+	    		System.out.println("\n프로그램 종료");
+	    		break;
+	    		
+	    	} else {
+	    		
+	    		System.out.print("열 인덱스 입력 : ");
+	    		int colIndex = sc.nextInt();
+	    		sc.nextLine();
+	    		
+	    		int num1 = 0;
+	    		int num2 = 0;
+	    		
+	    		for(int row = 0; row < arr.length; row++) {
+	    			for (int col = 0; col < arr[row].length; col++) {
+	    				if(row == 0 && col != 0) {
+	    					arr[row][col] = num1++ + " ";
+	    					
+	    				} else if(col == 0 && row != 0) {
+	    					arr[row][col] = num2++ + " ";
+	    					
+	    				} else {
+	    					arr[row][col] = "  ";
+	    				}
+	    				
+	    				arr[rowIndex+1][colIndex+1] = "X";
+	    				
+	    				System.out.print(arr[row][col]);
+	    			}
+	    			
+	    			System.out.println();
+	    		
+	    		}	    			
+	    	}
+	    }
+	}
+	
+	// 빙고게임
+	public void startBingo() {
+//		1. 빙고판 크기를 입력 받아, 그 크기 만큼의 행과 열을 가지는 2차원 배열(빙고판)을 생성하고
+//		1부터 크기*크기 사이의 정수 난수를 무작위 배치.
+
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("빙고판 크기 지정 : ");
+		int num = sc.nextInt();
+		sc.nextLine();
+		
+		// 1차원 배열로 빙고판에 입력될 값 생성 + 중복 제거 진행
+		int[] tempArr = new int[num*num]; // 1차원 배열 생성
+		// num * num --> 빙고판의 크기는 가로, 세로의 곱만큼의 공간이 필요함
+		
+		// 중복값 제거하면서 랜덤값 집어넣기
+		for(int i=0; i<tempArr.length; i++) {
+			tempArr[i] = (int)(Math.random()*(num*num)) + 1;
+			
+			// 중복 제거
+			for(int j=0; j<i; j++) {
+				if(tempArr[i] == tempArr[j]) {
+					i--;
+					break;
+				}
+			}
+		}
+		
+		// 위에서 만들어진 중복 제거한 1차원 배열을 --> 2차원 배열에 넣기
+		// String 배열로 변경해서 대입 진행
+		// 왜 String 배열? 빙고가 된 부분을 "★"로 변경하기 위해서
+		String[][] bingoBoard = new String[num][num];
+		
+		int index = 0; // 1차원 배열 인덱스 지정을 위한 변수
+		
+		for(int i=0; i<num; i++) {
+			for(int j=0; j<num; j++) {
+				// 1차원 배열은 0번부터 num*num까지 반복 진행
+				
+				bingoBoard[i][j] = tempArr[index] + "";
+				index++;
+			}
+		}
+		
+		// ------------------------------------------------------------
+		
+		// 랜덤 배치된 빙고판 최초 1회 출력
+		
+		for(int i=0; i<bingoBoard.length; i++) {
+			for(int j=0; j<bingoBoard[0].length; j++) {
+				System.out.printf("%4s", bingoBoard[i][j]);
+			}
+			System.out.println();
+		}
+		
+//		2. 정수를 입력 받아 빙고판에서 일치하는 부분을 찾아 해당 부분의 숫자를 “★“로 변경하고
+//		현재 빙고 카운트가 몇인지 출력.
+//		단, 빙고판에 없는 정수를 입력한 경우 “다시 입력해주세요.“ 출력
+		
+		System.out.println("============빙고게임 시작============");
+		
+		while(true) {
+			System.out.print("정수를 입력하시오 : ");
+			String input = sc.nextLine();
+			
+			boolean flag = true; // 검색된 값이 빙고판에 있는지 확인(잘못된 입력 확인)
+			for(int i=0; i<bingoBoard.length; i++) {
+				for(int j=0; j<bingoBoard[0].length; j++) {
+					
+					// 입력된 값과 일치되는 곳을 "★" 형태로 변환
+					if(bingoBoard[i][j].equals(input)) {
+						bingoBoard[i][j] = "★";
+						flag = false;
+					}
+					
+					System.out.printf("%4s", bingoBoard[i][j]);
+				}
+				
+				System.out.println();
+			}
+			
+			if(flag) {
+				System.out.println("잘못 입력하셨습니다. 다시 입력하세요.");
+				continue;
+			}
+			
+//			3. 가로, 세로, 대각선 한 줄이 모두 “★“로 변경되어 있을 경우 빙고 카운트를 1 증가
+
+			// 빙고판의 크기에 따라
+			// 빙고 기준이 되는 문자열 생성
+			// ex) 5 * 5 크기 빙고 -> 한 줄이 "★★★★★"이면 빙고
+		
+			String bingoLine = "";
+			for(int i=0; i<num; i++) {
+				bingoLine += "★";
+			}
+			
+			// 빙고 검사
+			int bingoCount = 0; // 빙고 수를 저장할 변수
+			
+			// 가로(행) 또는 세로(열)의 문자열을 더하여 하나의 문자열로 저장
+			// --> 저장된 문자열의 모양이 "★★★★★"인 경우 == 빙고
+			// --> bingoCount 증가
+			
+			for(int i=0; i<bingoBoard.length; i++) {
+				// 매 반복 시마다 row, col을 빈 문자열로 초기화
+				// --> 바깥쪽 for문이 반복될 때마다 검사하는 행과 열이 이동하므로
+				// 	   빙고 여부를 검사하기 위한 row, col을 빈 문자열로 초기화 해야 함
+				
+				String row = "";
+				String col = "";
+				
+				for(int j=0; j<bingoBoard.length; j++) {
+					 row += bingoBoard[i][j]; // 현재 행의 문자를 모두 더함
+					 
+					 // i, j(행렬)를 반대로 하여 열의 모든 문자를 더함
+					 col += bingoBoard[j][i];
+				}
+				
+				if(row.equals(bingoLine)) {
+					bingoCount++; // 가로 빙고가 존재할 경우
+				}
+				if(col.equals(bingoLine)) {
+					bingoCount++; // 세로 빙고가 존재할 경우
+				}
+			}
+			
+			
+//			4. 빙고카운트가 3이상이 되면 “***Bingo!***” 를 출력하고 프로그램 종료.
+		} // while문 종료
+		
+		
+		
+		
+		
+		
+		
+		
+		
+// [내 풀이]
+//		Scanner sc = new Scanner(System.in);
+//		
+//		System.out.print("빙고판 크기 지정 : ");
+//		int size = sc.nextInt();
+//		sc.nextLine();
+//		
+//		int row = 0;
+//		int col = 0;
+//		
+//		int[][] bingo = new int[size][size];
+//		
+//		int[] randomArr = new int[size * size];
+//		
+//		for(row=0; row<bingo.length; row++) {
+//			for(col=0; col<bingo[row].length; col++) {
+//				
+//				for(int i=0; i<randomArr.length; i++) {
+//					randomArr[i] = (int)(Math.random()*(size*size) + 1);
+//
+//					for(int x=0; x<i; x++) { // 랜덤 중복 검사
+//						if(randomArr[i] == randomArr[x]) {
+//							i--;
+//							break;
+//						}
+//					}
+//					
+//					bingo[row][col] = randomArr[i];
+//				}
+//				System.out.printf("%4d", bingo[row][col]);
+//			}
+//			System.out.println();
+//		}
+		
+//		2. 정수를 입력 받아 빙고판에서 일치하는 부분을 찾아 해당 부분의 숫자를 “★“로 변경하고
+//		현재 빙고 카운트가 몇인지 출력.
+//		단, 빙고판에 없는 정수를 입력한 경우 “다시 입력해주세요.“ 출력
+//		
+
+// [내 풀이]
+//		System.out.println("==========빙고게임 시작==========");
+//		System.out.print("정수를 입력하시오 : ");
+		
+//		int input = sc.nextInt();
+//		sc.nextLine();
+//		
+//		
+//		
+//		while(true) {
+//			for(row=0; row<bingo.length; row++) {
+//				for(col=0; col<bingo[row].length; col++) {
+//					System.out.print(bingo[row][col] + " ");
+//				}
+//			System.out.println();
+//			}
+//		}
+		
+		
+
+//		3. 가로, 세로, 대각선 한 줄이 모두 “★“로 변경되어 있을 경우 빙고 카운트를 1 증가
+//		
+//		4. 빙고카운트가 3이상이 되면 “***Bingo!***” 를 출력하고 프로그램 종료.
+	}
+}

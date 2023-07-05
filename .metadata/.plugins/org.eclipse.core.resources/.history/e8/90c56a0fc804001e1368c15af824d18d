@@ -1,0 +1,30 @@
+package edu.kh.array2.practice;
+
+public class PracticeRun {
+
+	public static void main(String[] args) {
+		
+		Array2Practice arr2P = new Array2Practice();
+//		arr2P.practice1();
+//		arr2P.practice2();
+//		arr2P.practice3();
+//		arr2P.practice4();
+//		arr2P.practice5();
+//		arr2P.practice6();
+//		arr2P.homeWork();
+//		arr2P.practice8();.
+//		arr2P.practice9();
+// 		arr2P.practice10();
+// 		arr2P.practice11();
+// 		arr2P.practice12();
+// 		arr2P.practice13();
+// 		arr2P.practice14();
+// 		arr2P.practice15();
+// 		arr2P.practice16();
+// 		arr2P.practice17();
+// 		arr2P.practice18();
+ 		arr2P.bingoGame();
+
+	}
+
+}

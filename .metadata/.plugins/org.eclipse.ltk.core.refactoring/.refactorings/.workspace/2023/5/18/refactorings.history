@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;09_polimorhsim&apos; to &apos;09_polymophism&apos;" description="Rename resource &apos;09_polimorhsim&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/09_polimorhsim" name="09_polymophism" stamp="1683091934230" updateReferences="true"/>
+</session>
